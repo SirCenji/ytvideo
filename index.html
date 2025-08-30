@@ -78,9 +78,8 @@
             height: 100%;
         }
 
-        /* Instagram Kart Stili */
-        .insta-card {
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        /* Yönlendirme Kart Stilleri */
+        .redirect-card {
             border-radius: var(--border-radius);
             display: flex;
             flex-direction: column;
@@ -93,22 +92,21 @@
             height: 100%;
         }
         
-        .insta-card h3 {
+        .redirect-card h3 {
             margin-bottom: 15px;
             font-size: 1.5em;
             font-weight: 600;
         }
 
-        .insta-icon {
+        .redirect-icon {
             font-size: 3em;
             margin-bottom: 15px;
         }
 
-        .insta-button {
+        .redirect-button {
             display: inline-flex;
             align-items: center;
             background-color: #fff;
-            color: #bc1888;
             padding: 12px 25px;
             border-radius: 30px;
             text-decoration: none;
@@ -117,19 +115,40 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
+        .redirect-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* YouTube Kart Stili */
+        .yt-card {
+            background: linear-gradient(45deg, #FF0000 0%, #E62117 100%);
+        }
+        .yt-button {
+            color: #FF0000;
+        }
+        .yt-button:hover {
+            background-color: #eee;
+            color: #cc0000;
+        }
+        .yt-button svg {
+            fill: #FF0000;
+        }
+
+        /* Instagram Kart Stili */
+        .insta-card {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+        .insta-button {
+            color: #bc1888;
+        }
         .insta-button:hover {
             background-color: #eee;
             color: #a01570;
-            transform: translateY(-2px);
         }
-
         .insta-button svg {
-            margin-right: 8px;
-            width: 20px;
-            height: 20px;
             fill: #bc1888;
         }
-        
+
         #question-text {
             font-size: 1.2em;
             margin-top: 20px;
@@ -246,7 +265,7 @@
         function getYouTubeId(url) {
             let ID = '';
             if (!url || typeof url !== 'string') return null;
-            const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/;
+            const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/|youtube\.com\/shorts\/)([^"&?\/ ]{11})/;
             const match = url.match(regex);
             if (match && match[1]) {
                 ID = match[1];
@@ -295,7 +314,6 @@
                     "https://www.instagram.com/reel/DNoXDU2NkNS/?igsh=YW1uc3cxaml4NXRq",
                     "https://www.instagram.com/reel/DJpZAdwoEpf/?igsh=MWNmYXBncDJ4dnJrbA%3D%3D",
                     "https://www.instagram.com/reel/DLIm47jMfQO/?igsh=MXYyMzZkeDV2Mm5mMQ==",
-                    "https://www.instagram.com/reel/DJPATuisa6v/?igsh=MTJ1cDBjaGNobXRhNA==",
                     "https://www.instagram.com/reel/DNROX3FC1gO/?igsh=MWhrZGcwdnliaTh0ZQ=="
                 ]
             },
@@ -318,23 +336,24 @@
                 selector: "EBRU",
                 links: [
                     "https://www.youtube.com/shorts/_LMWpvr8mi4",
-                    "https://www.youtube.com/watch?v=WE-rUyn58uI"
+                    "https://youtu.be/mhZv0GkPiJg"
                 ]
             },
             {
                 selector: "DİLAY",
                 links: [
                     "https://www.youtube.com/watch?v=7G3U9Q04qro",
-                    "https://youtube.com/shorts/5cjX1nFGXHQ?si=BtO2Fc6Kiqa7TEBZ"
+                    "https://youtube.com/shorts/5cjX1nFGXHQ?si=BtO2Fc6Kiqa7TEBZ",
+                    "https://www.instagram.com/reel/DLXKyr6iCPa/?igsh=bmx0Ym4ycnBreTVw"
                 ]
             },
             {
                 selector: "İSMET",
                 links: [
-                    "https://www.instagram.com/p/DKXFzcgCI3-/",
                     "https://www.youtube.com/watch?v=D1ALNCtkSZY&feature=youtu.be",
                     "https://youtu.be/iy0Rxz-s_RE?si=UIfPTBYGgNq0WY_A",
                     "https://youtu.be/Tgp8w9CHTjo?si=ONct8Y-O02SHgmuP",
+                    "https://www.instagram.com/p/DKXFzcgCI3-/",
                     "https://www.instagram.com/p/DM_w1yFsJ23/",
                     "https://www.instagram.com/p/DJ6DQM0td8r/"
                 ]
@@ -399,13 +418,28 @@
 
                 if (link.includes("instagram.com")) {
                     videoDiv.innerHTML = `
-                        <div class="insta-card">
-                            <span class="insta-icon">📷</span> 
+                        <div class="redirect-card insta-card">
                             <h3>Bu içerik için Instagram'a git</h3>
-                            <a href="${link}" target="_blank" class="insta-button">
+                            <a href="${link}" target="_blank" class="redirect-button insta-button">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                                 <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0-14.9-12-26.8-26.8-26.8s-26.8 12-26.8 26.8 12 26.8 26.8 26.8 26.8-12 26.8-26.8zm76.1-27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.2-26.2 26.2-34.4 58-36.2 93.9-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9 26.2 26.2 58 34.4 93.9 36.2 37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
                                 Instagram'da İzle
+                            </a>
+                        </div>
+                    `;
+                    videoDiv.style.paddingBottom = '0';
+                    videoDiv.style.height = 'auto';
+                    videoDiv.style.display = 'flex';
+                    videoDiv.style.alignItems = 'stretch';
+                } else if (link.includes("youtube.com/shorts")) {
+                     videoDiv.innerHTML = `
+                        <div class="redirect-card yt-card">
+                            <h3>Bu içerik için YouTube'a git</h3>
+                            <a href="${link}" target="_blank" class="redirect-button yt-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                <path d="M549.655 124.083c-6.281-23.65-24.787-42.15-48.436-48.436C434.965 64 288 64 288 64S141.035 64 74.785 75.647c-23.649 6.281-42.156 24.787-48.436 48.436C0 160.517 0 256 0 256s0 95.483 26.349 131.917c6.281 23.65 24.787 42.156 48.436 48.436C141.035 448 288 448 288 448s146.965 0 213.215-11.647c23.649-6.281 42.156-24.787 48.436-48.436C576 351.483 576 256 576 256s0-95.483-26.345-131.917zm-314.655 24.975v222.064l142.327-111.032-142.327-111.032z"/>
+                                </svg>
+                                YouTube'da İzle
                             </a>
                         </div>
                     `;

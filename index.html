@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kim Bu Videoyu Seçti? - TEST</title>
     
-    <script async defer src="http://googleusercontent.com/platform.instagram.com/en_US/embeds.js"></script>
-
     <style>
         /* Modern CSS Kodları */
         :root {
             --primary-color: #5b6bff;
             --secondary-color: #8c9eff;
-            --background-color: #d37c0b;
+            --background-color: #f4f6f9;
             --card-background: #ffffff;
             --text-color: #2c3e50;
             --correct-color: #2ecc71;
@@ -71,8 +69,7 @@
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
-        
-        /* YouTube iframe için stil */
+
         .video-container iframe {
             position: absolute;
             top: 0;
@@ -81,11 +78,56 @@
             height: 100%;
         }
 
-        /* Instagram embed için stil */
-        .video-container .instagram-media {
-            width: 100% !important;
-            height: 100% !important;
-            min-height: 250px; /* Instagram için min-height ekle */
+        /* Instagram Kart Stili */
+        .insta-card {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            border-radius: var(--border-radius);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: white;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            min-height: 250px; /* Kartın yüksekliğini belirle */
+            height: 100%; /* Video kapsayıcısının yüksekliğini almasını sağlar */
+        }
+        
+        .insta-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+
+        .insta-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .insta-button {
+            display: inline-flex; /* İkon ve metni aynı hizada tutmak için */
+            align-items: center;
+            background-color: #fff;
+            color: #bc1888; /* Instagram moru */
+            padding: 12px 25px;
+            border-radius: 30px; /* Daha yuvarlak buton */
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s, color 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .insta-button:hover {
+            background-color: #eee;
+            color: #a01570;
+            transform: translateY(-2px);
+        }
+
+        .insta-button svg {
+            margin-right: 8px;
+            width: 20px;
+            height: 20px;
+            fill: #bc1888; /* SVG ikon rengi */
         }
         
         #question-text {
@@ -128,7 +170,7 @@
         }
         
         #submit-button:disabled {
-            background-color: #c7c3bd;
+            background-color: #bdc3c7;
             cursor: not-allowed;
             transform: none;
         }
@@ -216,8 +258,8 @@
             {
                 selector: "Ahmet",
                 links: [
-                    "https://www.youtube.com/watch?v=EAysoyFaW9g&t=567s&ab_channel=HikayedenAdamlar",
-                    "https://www.instagram.com/reel/DN8ofeqDAN3/"
+                    "https://www.youtube.com/embed/3Z1_cpQafng89",
+                    "https://www.instagram.com/p/B4X-Z6nHPmX/" // Örnek Instagram linki
                 ]
             },
             {
@@ -225,7 +267,7 @@
                 links: [
                     "https://www.youtube.com/embed/3Z1_cpQafng90",
                     "https://www.youtube.com/user/KepowOb9",
-                    "https://www.instagram.com/p/B4X-Z6nHPmX/"
+                    "https://www.instagram.com/p/B4X-Z6nHPmX/" // Örnek Instagram linki
                 ]
             },
             {
@@ -237,7 +279,7 @@
             {
                 selector: "Zeynep",
                 links: [
-                    "https://www.instagram.com/p/B4X-Z6nHPmX/",
+                    "https://www.instagram.com/p/B4X-Z6nHPmX/", // Örnek Instagram linki
                     "https://www.youtube.com/watch?v=EAysoyFaW9g&t=567s&ab_channel=HikayedenAdamlar1"
                 ]
             }
@@ -272,10 +314,18 @@
 
                 if (link.includes("instagram.com")) {
                     videoDiv.innerHTML = `
-                        <blockquote class="instagram-media" data-instgrm-permalink="${link}" data-instgrm-version="14">
-                            <a href="${link}" target="_blank">Instagram Gönderisi</a>
-                        </blockquote>
+                        <div class="insta-card">
+                            <span class="insta-icon">&#128247;</span> <h3>Bu içerik için Instagram'a git</h3>
+                            <a href="${link}" target="_blank" class="insta-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0-14.9-12-26.8-26.8-26.8s-26.8 12-26.8 26.8 12 26.8 26.8 26.8 26.8-12 26.8-26.8zm76.1-27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.2-26.2 26.2-34.4 58-36.2 93.9-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9 26.2 26.2 58 34.4 93.9 36.2 37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+                                Instagram'da İzle
+                            </a>
+                        </div>
                     `;
+                    videoDiv.style.paddingBottom = '0'; 
+                    videoDiv.style.height = 'auto'; // İçeriğine göre yüksekliği ayarla
+                    videoDiv.style.display = 'flex';
+                    videoDiv.style.alignItems = 'stretch'; /* İçeriğin dikeyde yayılmasını sağlar */
                 } else {
                     const videoId = getYouTubeId(link);
                     if (videoId) {
@@ -293,11 +343,6 @@
             guessInput.value = '';
             guessInput.disabled = false;
             submitButton.disabled = false;
-            
-            // Instagram embed script'inin yeni içeriği işlemesi için çağrı
-            if (window.instgrm) {
-                window.instgrm.Embeds.process();
-            }
         }
 
         function checkAnswer() {

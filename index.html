@@ -210,7 +210,14 @@
         .correct { color: var(--correct-color); }
         .wrong { color: var(--wrong-color); }
 
-        #next-button {
+        /* Yeni butonlar için stiller */
+        .navigation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .navigation-buttons button {
             background-color: #f39c12;
             color: white;
             border: none;
@@ -218,28 +225,12 @@
             border-radius: var(--border-radius);
             cursor: pointer;
             font-size: 1.1em;
-            margin-top: 20px;
             font-weight: bold;
             transition: background-color 0.3s, transform 0.2s;
         }
-
-        #next-button:hover {
+        .navigation-buttons button:hover {
             background-color: #e67e22;
             transform: translateY(-2px);
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 2em;
-            }
-
-            #guess-input {
-                width: 90%;
-            }
         }
     </style>
 </head>
@@ -254,10 +245,14 @@
         
         <input type="text" id="guess-input" placeholder="Tahminini buraya yaz..." autocomplete="off">
         <button id="submit-button">Tahmin Et</button>
+        
+        <div class="navigation-buttons">
+            <button id="prev-button" style="display: none;">Geri</button>
+            <button id="skip-button">Atla</button>
+        </div>
 
         <div class="result-container">
             <p id="result-text"></p>
-            <button id="next-button" style="display: none;">Sıradaki Video Grubu</button>
         </div>
     </div>
 
@@ -393,20 +388,33 @@
         const guessInput = document.getElementById('guess-input');
         const submitButton = document.getElementById('submit-button');
         const resultText = document.getElementById('result-text');
-        const nextButton = document.getElementById('next-button');
+        const prevButton = document.getElementById('prev-button');
+        const skipButton = document.getElementById('skip-button');
         const questionText = document.getElementById('question-text');
 
         let currentGroupIndex = 0;
+        let videoGroupsHistory = []; 
 
-        function loadVideoGroup(index) {
+        function loadVideoGroup(index, direction) {
             if (index >= videoGroups.length) {
                 videoGroupContainer.innerHTML = "<h2>Oyun Bitti! Katıldığınız için teşekkürler.</h2>";
                 guessInput.style.display = 'none';
                 submitButton.style.display = 'none';
                 resultText.style.display = 'none';
-                nextButton.style.display = 'none';
+                prevButton.style.display = 'none';
+                skipButton.style.display = 'none';
                 questionText.style.display = 'none';
                 return;
+            }
+
+            if (index > 0) {
+                prevButton.style.display = 'inline-block';
+            } else {
+                prevButton.style.display = 'none';
+            }
+
+            if (direction === 'forward' && currentGroupIndex > 0) {
+                 videoGroupsHistory.push(currentGroupIndex - 1);
             }
 
             const currentGroup = videoGroups[index];
@@ -431,22 +439,6 @@
                     videoDiv.style.height = 'auto';
                     videoDiv.style.display = 'flex';
                     videoDiv.style.alignItems = 'stretch';
-                } else if (link.includes("youtube.com/shorts")) {
-                     videoDiv.innerHTML = `
-                        <div class="redirect-card yt-card">
-                            <h3>Bu içerik için YouTube'a git</h3>
-                            <a href="${link}" target="_blank" class="redirect-button yt-button">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                                <path d="M549.655 124.083c-6.281-23.65-24.787-42.15-48.436-48.436C434.965 64 288 64 288 64S141.035 64 74.785 75.647c-23.649 6.281-42.156 24.787-48.436 48.436C0 160.517 0 256 0 256s0 95.483 26.349 131.917c6.281 23.65 24.787 42.156 48.436 48.436C141.035 448 288 448 288 448s146.965 0 213.215-11.647c23.649-6.281 42.156-24.787 48.436-48.436C576 351.483 576 256 576 256s0-95.483-26.345-131.917zm-314.655 24.975v222.064l142.327-111.032-142.327-111.032z"/>
-                                </svg>
-                                YouTube'da İzle
-                            </a>
-                        </div>
-                    `;
-                    videoDiv.style.paddingBottom = '0';
-                    videoDiv.style.height = 'auto';
-                    videoDiv.style.display = 'flex';
-                    videoDiv.style.alignItems = 'stretch';
                 } else {
                     const videoId = getYouTubeId(link);
                     if (videoId) {
@@ -455,12 +447,10 @@
                         console.error("Desteklenmeyen video linki:", link);
                     }
                 }
-
                 videoGroupContainer.appendChild(videoDiv);
             });
 
             resultText.textContent = '';
-            nextButton.style.display = 'none';
             guessInput.value = '';
             guessInput.disabled = false;
             submitButton.disabled = false;
@@ -476,17 +466,34 @@
             if (guessedSelector === correctSelector) {
                 resultText.textContent = "Doğru Bildin!";
                 resultText.className = 'correct';
+                setTimeout(goToNextVideoGroup, 2000);
             } else {
                 resultText.textContent = `Yanlış! Doğru cevap: ${videoGroups[currentGroupIndex].selector}`;
                 resultText.className = 'wrong';
             }
-
-            nextButton.style.display = 'inline-block';
         }
 
         function goToNextVideoGroup() {
             currentGroupIndex++;
-            loadVideoGroup(currentGroupIndex);
+            loadVideoGroup(currentGroupIndex, 'forward');
+        }
+
+        function goToPrevVideoGroup() {
+            if (videoGroupsHistory.length > 0) {
+                currentGroupIndex = videoGroupsHistory.pop();
+                loadVideoGroup(currentGroupIndex, 'backward');
+            }
+        }
+        
+        function skipVideoGroup() {
+            const currentGroup = videoGroups[currentGroupIndex];
+            videoGroups.splice(currentGroupIndex, 1);
+            videoGroups.push(currentGroup);
+            
+            if (currentGroupIndex >= videoGroups.length) {
+                currentGroupIndex = 0;
+            }
+            loadVideoGroup(currentGroupIndex, 'forward');
         }
 
         submitButton.addEventListener('click', checkAnswer);
@@ -495,10 +502,11 @@
                 checkAnswer();
             }
         });
-        nextButton.addEventListener('click', goToNextVideoGroup);
+        prevButton.addEventListener('click', goToPrevVideoGroup);
+        skipButton.addEventListener('click', skipVideoGroup);
 
         window.onload = () => {
-            if (videoGroupContainer && guessInput && submitButton && resultText && nextButton) {
+            if (videoGroupContainer && guessInput && submitButton && resultText && prevButton && skipButton) {
                 loadVideoGroup(currentGroupIndex);
             } else {
                 console.error("Gerekli HTML elementlerinden biri veya birkaçı bulunamadı! Lütfen ID'leri kontrol edin.");

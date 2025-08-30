@@ -1,0 +1,86 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    max-width: 600px;
+}
+
+h1 {
+    color: #1a73e8;
+}
+
+.video-container {
+    margin: 20px 0;
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.choices button {
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.choices button:hover {
+    background-color: #155ab3;
+}
+
+/* Cevap sonrası butonların durumu için CSS sınıfları */
+.choices button.correct {
+    background-color: #28a745; /* Yeşil */
+}
+
+.choices button.wrong {
+    background-color: #dc3545; /* Kırmızı */
+}
+
+.choices button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+#result-text {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 15px;
+    min-height: 25px;
+}
+
+#next-button {
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-top: 10px;
+}

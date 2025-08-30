@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kim Bu Videoyu Seçti?</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Kim Bu Videoyu Seçti?</h1>
+        
+        <div class="video-container">
+            <iframe id="video-player" width="560" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <p id="question-text">Bu videoyu sence kim seçti?</p>
+
+        <div id="choices-container" class="choices">
+            </div>
+
+        <div class="result-container">
+            <p id="result-text"></p>
+            <button id="next-button" style="display: none;">Sıradaki Video</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

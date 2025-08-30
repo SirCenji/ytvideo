@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bu Videoyu Kim Seçti? - TEST</title>
     
-    <style>
+<style>
         /* Modern CSS Kodları */
         :root {
             --primary-color: #5b6bff;
@@ -20,9 +20,10 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            background-color: var(--background-color);
+            /* Yeni, daha modern arka plan */
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
             color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -33,7 +34,8 @@
         }
 
         .container {
-            background-color: var(--card-background);
+            background-color: rgba(255, 255, 255, 0.85); /* Hafif şeffaflık ekle */
+            backdrop-filter: blur(10px); /* Arka planı bulanıklaştır */
             padding: 40px;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
@@ -268,6 +270,24 @@
             return ID;
         }
 
+        // Video gruplarını rastgele sıralamak için bir fonksiyon
+        function shuffle(array) {
+          let currentIndex = array.length, randomIndex;
+
+          // Geriye kalan elementler varken
+          while (currentIndex != 0) {
+            // Bir rastgele element seç
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+
+            // Ve onu mevcut elementle değiştir
+            [array[currentIndex], array[randomIndex]] = [
+              array[randomIndex], array[currentIndex]];
+          }
+
+          return array;
+        }
+
         const videoGroups = [
             {
                 selector: "ALP",
@@ -331,7 +351,7 @@
                 selector: "EBRU",
                 links: [
                     "https://www.youtube.com/shorts/_LMWpvr8mi4",
-                    "https://youtu.be/mhZv0GkPiJg",
+                    "https://www.youtube.com/watch?v=mhZv0GkPiJg&ab_channel=alp%E2%80%99sarchive",
                     "https://www.instagram.com/p/DNgcb4SSau6/"
                 ]
             },
@@ -339,8 +359,9 @@
                 selector: "DİLAY",
                 links: [
                     "https://www.youtube.com/watch?v=7G3U9Q04qro",
-                    "https://youtube.com/shorts/5cjX1nFGXHQ?si=BtO2Fc6Kiqa7TEBZ",
-                    "https://www.instagram.com/reel/DLXKyr6iCPa/?igsh=bmx0Ym4ycnBreTVw"
+                    "https://www.instagram.com/reel/DLXKyr6iCPa/?igsh=bmx0Ym4ycnBreTVw",
+                    "https://youtube.com/shorts/5cjX1nFGXHQ?si=BtO2Fc6Kiqa7TEBZ"
+
                 ]
             },
             {
@@ -508,6 +529,9 @@
         skipButton.addEventListener('click', skipVideoGroup);
 
         window.onload = () => {
+            // Sayfa yüklendiğinde video gruplarını karıştır
+            shuffle(videoGroups);
+
             if (videoGroupContainer && guessInput && submitButton && resultText && prevButton && skipButton) {
                 loadVideoGroup(currentGroupIndex);
             } else {
@@ -518,7 +542,3 @@
     </script>
 </body>
 </html>
-
-
-
-

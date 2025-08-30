@@ -3,29 +3,342 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kim Bu Videoyu Seçti?</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Kim Bu Videoyu Seçti? - TEST</title>
+    
+    <script async defer src="http://googleusercontent.com/platform.instagram.com/en_US/embeds.js"></script>
+
+    <style>
+        /* Modern CSS Kodları */
+        :root {
+            --primary-color: #5b6bff;
+            --secondary-color: #8c9eff;
+            --background-color: #d37c0b;
+            --card-background: #ffffff;
+            --text-color: #2c3e50;
+            --correct-color: #2ecc71;
+            --wrong-color: #e74c3c;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: var(--card-background);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            width: 100%;
+            max-width: 900px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+
+        #video-group-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* YouTube iframe için stil */
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Instagram embed için stil */
+        .video-container .instagram-media {
+            width: 100% !important;
+            height: 100% !important;
+            min-height: 250px; /* Instagram için min-height ekle */
+        }
+        
+        #question-text {
+            font-size: 1.2em;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+
+        #guess-input {
+            width: 80%;
+            padding: 12px 15px;
+            margin-top: 15px;
+            border: 2px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        #guess-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        #submit-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            margin-top: 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        #submit-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        #submit-button:disabled {
+            background-color: #c7c3bd;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #result-text {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-top: 25px;
+            min-height: 30px;
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .correct { color: var(--correct-color); }
+        .wrong { color: var(--wrong-color); }
+
+        #next-button {
+            background-color: #f39c12;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 20px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        #next-button:hover {
+            background-color: #e67e22;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            #guess-input {
+                width: 90%;
+            }
+        }
+    </style>
 </head>
 <body>
 
     <div class="container">
         <h1>Kim Bu Videoyu Seçti?</h1>
         
-        <div class="video-container">
-            <iframe id="video-player" width="560" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
+        <div id="video-group-container"></div>
 
-        <p id="question-text">Bu videoyu sence kim seçti?</p>
-
-        <div id="choices-container" class="choices">
-            </div>
+        <p id="question-text">Bu videoları sence kim seçti?</p>
+        
+        <input type="text" id="guess-input" placeholder="Tahminini buraya yaz..." autocomplete="off">
+        <button id="submit-button">Tahmin Et</button>
 
         <div class="result-container">
             <p id="result-text"></p>
-            <button id="next-button" style="display: none;">Sıradaki Video</button>
+            <button id="next-button" style="display: none;">Sıradaki Video Grubu</button>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        function getYouTubeId(url) {
+            let ID = '';
+            if (!url || typeof url !== 'string') return null;
+            const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/;
+            const match = url.match(regex);
+            if (match && match[1]) {
+                ID = match[1];
+            }
+            return ID;
+        }
+
+        const videoGroups = [
+            {
+                selector: "Ahmet",
+                links: [
+                    "https://www.youtube.com/watch?v=EAysoyFaW9g&t=567s&ab_channel=HikayedenAdamlar",
+                    "https://www.instagram.com/reel/DN8ofeqDAN3/"
+                ]
+            },
+            {
+                selector: "Ayşe",
+                links: [
+                    "https://www.youtube.com/embed/3Z1_cpQafng90",
+                    "https://www.youtube.com/user/KepowOb9",
+                    "https://www.instagram.com/p/B4X-Z6nHPmX/"
+                ]
+            },
+            {
+                selector: "Mehmet",
+                links: [
+                    "https://www.youtube.com/watch?v=EAysoyFaW9g&t=567s&ab_channel=HikayedenAdamlar0"
+                ]
+            },
+            {
+                selector: "Zeynep",
+                links: [
+                    "https://www.instagram.com/p/B4X-Z6nHPmX/",
+                    "https://www.youtube.com/watch?v=EAysoyFaW9g&t=567s&ab_channel=HikayedenAdamlar1"
+                ]
+            }
+        ];
+
+        const videoGroupContainer = document.getElementById('video-group-container');
+        const guessInput = document.getElementById('guess-input');
+        const submitButton = document.getElementById('submit-button');
+        const resultText = document.getElementById('result-text');
+        const nextButton = document.getElementById('next-button');
+        const questionText = document.getElementById('question-text');
+
+        let currentGroupIndex = 0;
+
+        function loadVideoGroup(index) {
+            if (index >= videoGroups.length) {
+                videoGroupContainer.innerHTML = "<h2>Oyun Bitti! Katıldığınız için teşekkürler.</h2>";
+                guessInput.style.display = 'none';
+                submitButton.style.display = 'none';
+                resultText.style.display = 'none';
+                nextButton.style.display = 'none';
+                questionText.style.display = 'none';
+                return;
+            }
+
+            const currentGroup = videoGroups[index];
+            videoGroupContainer.innerHTML = '';
+
+            currentGroup.links.forEach(link => {
+                const videoDiv = document.createElement('div');
+                videoDiv.className = 'video-container';
+
+                if (link.includes("instagram.com")) {
+                    videoDiv.innerHTML = `
+                        <blockquote class="instagram-media" data-instgrm-permalink="${link}" data-instgrm-version="14">
+                            <a href="${link}" target="_blank">Instagram Gönderisi</a>
+                        </blockquote>
+                    `;
+                } else {
+                    const videoId = getYouTubeId(link);
+                    if (videoId) {
+                        videoDiv.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                    } else {
+                        console.error("Desteklenmeyen video linki:", link);
+                    }
+                }
+
+                videoGroupContainer.appendChild(videoDiv);
+            });
+
+            resultText.textContent = '';
+            nextButton.style.display = 'none';
+            guessInput.value = '';
+            guessInput.disabled = false;
+            submitButton.disabled = false;
+            
+            // Instagram embed script'inin yeni içeriği işlemesi için çağrı
+            if (window.instgrm) {
+                window.instgrm.Embeds.process();
+            }
+        }
+
+        function checkAnswer() {
+            const guessedSelector = guessInput.value.trim().toLowerCase();
+            const correctSelector = videoGroups[currentGroupIndex].selector.trim().toLowerCase();
+
+            guessInput.disabled = true;
+            submitButton.disabled = true;
+
+            if (guessedSelector === correctSelector) {
+                resultText.textContent = "Doğru Bildin!";
+                resultText.className = 'correct';
+            } else {
+                resultText.textContent = `Yanlış! Doğru cevap: ${videoGroups[currentGroupIndex].selector}`;
+                resultText.className = 'wrong';
+            }
+
+            nextButton.style.display = 'inline-block';
+        }
+
+        function goToNextVideoGroup() {
+            currentGroupIndex++;
+            loadVideoGroup(currentGroupIndex);
+        }
+
+        submitButton.addEventListener('click', checkAnswer);
+        guessInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter' && !submitButton.disabled) {
+                checkAnswer();
+            }
+        });
+        nextButton.addEventListener('click', goToNextVideoGroup);
+
+        window.onload = () => {
+            if (videoGroupContainer && guessInput && submitButton && resultText && nextButton) {
+                loadVideoGroup(currentGroupIndex);
+            } else {
+                console.error("Gerekli HTML elementlerinden biri veya birkaçı bulunamadı! Lütfen ID'leri kontrol edin.");
+                document.body.innerHTML = "<h1>HATA: Sayfa yüklenemedi. Lütfen HTML dosyasını kontrol edin.</h1>";
+            }
+        };
+    </script>
 </body>
 </html>

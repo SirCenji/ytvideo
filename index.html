@@ -89,8 +89,8 @@
             padding: 20px;
             color: white;
             text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-            min-height: 250px; /* Kartın yüksekliğini belirle */
-            height: 100%; /* Video kapsayıcısının yüksekliğini almasını sağlar */
+            min-height: 250px; 
+            height: 100%;
         }
         
         .insta-card h3 {
@@ -105,12 +105,12 @@
         }
 
         .insta-button {
-            display: inline-flex; /* İkon ve metni aynı hizada tutmak için */
+            display: inline-flex;
             align-items: center;
             background-color: #fff;
-            color: #bc1888; /* Instagram moru */
+            color: #bc1888;
             padding: 12px 25px;
-            border-radius: 30px; /* Daha yuvarlak buton */
+            border-radius: 30px;
             text-decoration: none;
             font-weight: bold;
             transition: background-color 0.3s, transform 0.2s, color 0.3s;
@@ -127,7 +127,7 @@
             margin-right: 8px;
             width: 20px;
             height: 20px;
-            fill: #bc1888; /* SVG ikon rengi */
+            fill: #bc1888;
         }
         
         #question-text {
@@ -256,31 +256,116 @@
 
         const videoGroups = [
             {
-                selector: "Ahmet",
+                selector: "ALP",
                 links: [
-                    "https://www.youtube.com/embed/3Z1_cpQafng89",
-                    "https://www.instagram.com/p/B4X-Z6nHPmX/" // Örnek Instagram linki
+                    "https://www.youtube.com/watch?v=oK6JPGFGq2w",
+                    "https://www.youtube.com/watch?v=ymLCYgWr-h8",
+                    "https://www.youtube.com/watch?v=lojkhQE2IBU"
                 ]
             },
             {
-                selector: "Ayşe",
+                selector: "FIRAT ABİ",
                 links: [
-                    "https://www.youtube.com/embed/3Z1_cpQafng90",
-                    "https://www.youtube.com/user/KepowOb9",
-                    "https://www.instagram.com/p/B4X-Z6nHPmX/" // Örnek Instagram linki
+                    "https://www.youtube.com/watch?v=N5gwEdv29Fc"
                 ]
             },
             {
-                selector: "Mehmet",
+                selector: "SEMA",
                 links: [
-                    "https://www.youtube.com/watch?v=EAysoyFaW9g&t=567s&ab_channel=HikayedenAdamlar0"
+                    "https://www.youtube.com/shorts/wRiQNIO7PR4"
                 ]
             },
             {
-                selector: "Zeynep",
+                selector: "KOBE",
                 links: [
-                    "https://www.instagram.com/p/B4X-Z6nHPmX/", // Örnek Instagram linki
-                    "https://www.youtube.com/watch?v=EAysoyFaW9g&t=567s&ab_channel=HikayedenAdamlar1"
+                    "https://www.youtube.com/watch?v=rgzHp3vQRk0&feature=youtu.be"
+                ]
+            },
+            {
+                selector: "SUEDA",
+                links: [
+                    "https://youtu.be/vlAwc3--OKU?si=gjb5oTuPLGB53Sn1"
+                ]
+            },
+            {
+                selector: "TALHA",
+                links: [
+                    "https://youtu.be/4R4pO08Uczo?si=hHulQtT1tJow9pyt",
+                    "https://www.instagram.com/reel/DMsvA3_N_-m/?igsh=dml2Z2g3eWlibHhz",
+                    "https://www.instagram.com/reel/DNoXDU2NkNS/?igsh=YW1uc3cxaml4NXRq",
+                    "https://www.instagram.com/reel/DJpZAdwoEpf/?igsh=MWNmYXBncDJ4dnJrbA%3D%3D",
+                    "https://www.instagram.com/reel/DLIm47jMfQO/?igsh=MXYyMzZkeDV2Mm5mMQ==",
+                    "https://www.instagram.com/reel/DJPATuisa6v/?igsh=MTJ1cDBjaGNobXRhNA==",
+                    "https://www.instagram.com/reel/DNROX3FC1gO/?igsh=MWhrZGcwdnliaTh0ZQ=="
+                ]
+            },
+            {
+                selector: "KÜBRA",
+                links: [
+                    "https://youtube.com/shorts/Ff9XM-bA_TA?si=iM7300IDMLwyxZj5",
+                    "https://youtu.be/KtUwcHrqpSc?si=MFOKyvGuurztfpqh"
+                ]
+            },
+            {
+                selector: "ASLAN",
+                links: [
+                    "https://www.instagram.com/reel/DMstu2iKCvj/?igsh=ajViZ2RubmpuazYz",
+                    "https://www.instagram.com/reel/DNF9-dVIiQw/?igsh=MXB6Nmhhczl1Z2oybw==",
+                    "https://www.instagram.com/reel/DFtSaOQt3P5/?igsh=MXFjaXpvczluY25obw%3D%3D"
+                ]
+            },
+            {
+                selector: "EBRU",
+                links: [
+                    "https://www.youtube.com/shorts/_LMWpvr8mi4",
+                    "https://www.youtube.com/watch?v=WE-rUyn58uI"
+                ]
+            },
+            {
+                selector: "DİLAY",
+                links: [
+                    "https://www.youtube.com/watch?v=7G3U9Q04qro",
+                    "https://youtube.com/shorts/5cjX1nFGXHQ?si=BtO2Fc6Kiqa7TEBZ"
+                ]
+            },
+            {
+                selector: "İSMET",
+                links: [
+                    "https://www.instagram.com/p/DKXFzcgCI3-/",
+                    "https://www.youtube.com/watch?v=D1ALNCtkSZY&feature=youtu.be",
+                    "https://youtu.be/iy0Rxz-s_RE?si=UIfPTBYGgNq0WY_A",
+                    "https://youtu.be/Tgp8w9CHTjo?si=ONct8Y-O02SHgmuP",
+                    "https://www.instagram.com/p/DM_w1yFsJ23/",
+                    "https://www.instagram.com/p/DJ6DQM0td8r/"
+                ]
+            },
+            {
+                selector: "ERAY",
+                links: [
+                    "https://www.youtube.com/watch?v=Du8CYL92Z8Y",
+                    "https://www.instagram.com/reel/DLLFvusis17/?igsh=MWNvdnNhbXlxbjIzeQ%3D%3D",
+                    "https://www.instagram.com/reel/DIi218Us2Uk/?igsh=MTQxaXN6YTk5dXVsZg%3D%3D",
+                    "https://www.instagram.com/reel/C7jjhETNChD/?igsh=MWpueGw4aThyYjQ1bg%3D%3D",
+                    "https://www.instagram.com/reel/DM0_t_zIGlS/?igsh=MWd6cWdudTF0YnNpbA%3D%3D",
+                    "https://www.instagram.com/reel/DIowFtbO0Vc/?igsh=emViMTNrbmk4OGp1"
+                ]
+            },
+            {
+                selector: "LALAYUPSİ",
+                links: [
+                    "https://youtu.be/o_RsoXzLs_Q?si=S9xK4kPi8Ip-h6M6",
+                    "https://www.instagram.com/reel/DLaycDjRBqq/",
+                    "https://www.instagram.com/reel/DKnk8p8Pfwv/",
+                    "https://youtube.com/shorts/6KW1qudBcfA?si=MfmQt8kRNPAhvN3h",
+                    "https://www.instagram.com/reel/DNNfBB4vHry/"
+                ]
+            },
+            {
+                selector: "MRCENJİ",
+                links: [
+                    "https://youtu.be/OFxirLWwdY4?si=t1U0kR2jgtEspZri",
+                    "https://www.youtube.com/watch?v=_tYQbKWPE4Q&list=PLli_GufApgj3x9RUKeMLekNxtQlatfV6Y&ab_channel=TuzluErik",
+                    "https://www.youtube.com/watch?v=lOotAXGmNxU"
                 ]
             }
         ];
@@ -315,17 +400,19 @@
                 if (link.includes("instagram.com")) {
                     videoDiv.innerHTML = `
                         <div class="insta-card">
-                            <span class="insta-icon">&#128247;</span> <h3>Bu içerik için Instagram'a git</h3>
+                            <span class="insta-icon">📷</span> 
+                            <h3>Bu içerik için Instagram'a git</h3>
                             <a href="${link}" target="_blank" class="insta-button">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0-14.9-12-26.8-26.8-26.8s-26.8 12-26.8 26.8 12 26.8 26.8 26.8 26.8-12 26.8-26.8zm76.1-27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.2-26.2 26.2-34.4 58-36.2 93.9-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9 26.2 26.2 58 34.4 93.9 36.2 37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0-14.9-12-26.8-26.8-26.8s-26.8 12-26.8 26.8 12 26.8 26.8 26.8 26.8-12 26.8-26.8zm76.1-27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.2-26.2 26.2-34.4 58-36.2 93.9-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9 26.2 26.2 58 34.4 93.9 36.2 37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
                                 Instagram'da İzle
                             </a>
                         </div>
                     `;
-                    videoDiv.style.paddingBottom = '0'; 
-                    videoDiv.style.height = 'auto'; // İçeriğine göre yüksekliği ayarla
+                    videoDiv.style.paddingBottom = '0';
+                    videoDiv.style.height = 'auto';
                     videoDiv.style.display = 'flex';
-                    videoDiv.style.alignItems = 'stretch'; /* İçeriğin dikeyde yayılmasını sağlar */
+                    videoDiv.style.alignItems = 'stretch';
                 } else {
                     const videoId = getYouTubeId(link);
                     if (videoId) {
